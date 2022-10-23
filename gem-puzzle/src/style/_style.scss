@@ -1,0 +1,56 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	background: #00a34c;
+	background-image: url('./img/graphy-dark.png');
+	overflow: hidden;
+	font-family: Montserrat;
+}
+.wrapper {
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: center;
+	user-select: none;
+}
+h1 {
+	margin: 1em;
+}
+.stats{
+	font-size: 1.5rem;
+	margin: 1rem;
+}
+.field {
+	width: 100%;
+	height: 400px;
+	border: 1px solid black;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	position: relative;
+}
+.cell {
+	position: absolute;
+	width: 25%;
+	height: 25%;
+	border: 1px solid blue;
+	border-radius: 10px;
+	font-size: 77px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+}
+.control{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+}
+.btn {
+	font-family: Montserrat;
+	cursor: pointer;
+	opacity: 0.5;
+	padding: 1em;
+	&:hover {
+		opacity: 1;
+	}
+}
