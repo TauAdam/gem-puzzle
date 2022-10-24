@@ -1,6 +1,8 @@
 import { createMatrix, field } from './helpers/drawMatrix';
 import randomSwap from './helpers/shuffleAlgorithm';
 import { swap, isValidforSwap } from './helpers/swap';
+import soundAccompaniment from './helpers/audio';
+import audioSource from '../audio/audio_move.mp3';
 
 const gameNode = document.getElementById('game');
 const buttonRestart = document.querySelector('.btn-shuffle');
@@ -70,6 +72,7 @@ field.addEventListener('click', event => {
 	}
 	const tileId = +tileNode.textContent;
 	if (isValidforSwap(tileId)) {
+		soundAccompaniment(audioSource);
 		swap(tileId);
 	}
 });
