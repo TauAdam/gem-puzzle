@@ -15,6 +15,12 @@ body {
 	box-shadow: 0 7px 7px rgb(0 0 0 / 50%);
 	border-radius: 10px;
 }
+
+.gameShuffling {
+	opacity: 0.7;
+	pointer-events: none;
+}
+
 h1 {
 	margin: 1em;
 }
@@ -55,13 +61,13 @@ h1 {
 .btn {
 	font-family: Montserrat;
 	cursor: pointer;
-	opacity: 0.5;
+	opacity: 0.7;
 	padding: 1em;
 	&:hover {
 		opacity: 1;
 	}
 }
-.message{
+.message {
 	text-align: center;
 	color: rgba(52, 63, 34, 0.849);
 }
