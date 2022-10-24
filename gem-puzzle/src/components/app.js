@@ -37,21 +37,21 @@ function clearMatrix() {
 	field.innerHTML = '';
 }
 function soundAccompaniment() {}
-function handleClick() {
-	for (let i = 1; i < 16; i++) {
-		const tile = tiles[i].element;
-		tile.addEventListener('click', event => {
-			mode = 'run';
-			swap(i);
-		});
-	}
-}
+// function handleClick() {
+// 	for (let i = 1; i < 16; i++) {
+// 		const tile = tiles[i].element;
+// 		tile.addEventListener('click', event => {
+// 			mode = 'run';
+// 			console.log('i', i);
+// 			if (isValidforSwap(i)) {
+// 				swap(i);
+// 			}
+// 		});
+// 	}
+// }
 function swap(i) {
 	const tile = tiles[i];
-	// console.log(isValidforSwap(i));
-	if (!isValidforSwap(i)) {
-		return;
-	}
+
 	tile.element.style.left = `${empty.left * tileSize}px`;
 	tile.element.style.top = `${empty.top * tileSize}px`;
 	const emptyTop = empty.top;
@@ -99,7 +99,8 @@ function shuffle(arr) {
 function randomSwap() {
 	const validPos = findValidPos();
 	const swapPos = validPos[Math.floor(Math.random() * validPos.length)];
-	console.log(swapPos);
+	console.log(swapPos.value);
+	swap(swapPos.value);
 }
 function findValidPos() {
 	const valid = [];
@@ -111,13 +112,6 @@ function findValidPos() {
 	}
 	return valid;
 }
-buttonRestart.addEventListener('click', () => {
-	randomSwap();
-	// const shuffledNumbers = shuffle([...Array(15).keys()]);
-	// clearMatrix();
-	// createMatrix(shuffledNumbers);
-	// handleClick();
-});
 
 // function stopwatch() {
 // 	var start = new Date.now(),
@@ -139,9 +133,34 @@ function render() {
 
 	const shuffledNumbers = shuffle([...Array(15).keys()]);
 	createMatrix(shuffledNumbers);
-	handleClick();
 }
 function main() {
 	render();
 }
+buttonRestart.addEventListener('click', () => {
+	// randomSwap();
+	const maxShuffle = 50;
+	let timer;
+	let shuffleCount = 0;
+	if(shuffleCount === 0){
+		timer = setInterval(() => {
+			console.log(111);
+		}, 200);
+	}
+	// const shuffledNumbers = shuffle([...Array(15).keys()]);
+	// clearMatrix();
+	// createMatrix(shuffledNumbers);
+	// handleClick();
+});
+field.addEventListener('click', event => {
+	const tileNode = event.target.closest('.tile');
+	if (!tileNode) {
+		return;
+	}
+	const tileId = +tileNode.textContent;
+	mode = 'run';
+	if (isValidforSwap(tileId)) {
+		swap(tileId);
+	}
+});
 main();
