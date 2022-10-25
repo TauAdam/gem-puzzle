@@ -1,4 +1,4 @@
-import { tileSize, tiles, empty } from './drawMatrix';
+import { tileSize, tiles, empty, message } from './drawMatrix';
 
 function swap(i) {
 	const tile = tiles[i];
@@ -30,7 +30,6 @@ function isValidforSwap(i) {
 function isSolved() {
 	return tiles.every(tile => tile.value === tile.top * 4 + tile.left);
 }
-const message = document.querySelector('.message');
 function wonMessage() {
 	setTimeout(() => {
 		message.innerHTML =
