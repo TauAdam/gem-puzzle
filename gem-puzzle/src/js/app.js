@@ -1,34 +1,83 @@
 import {
 	createMatrix,
 	field,
+	tileSize,
+	tiles,
+	empty,
 	game as gameNode,
 	buttonShuffle,
 	stats,
+	message,
 } from './helpers/drawMatrix';
 import randomSwap from './helpers/shuffleAlgorithm';
-import { swap, isValidforSwap } from './helpers/swap';
 import soundAccompaniment from './helpers/audio';
 import audioSource from '../audio/audio_move.mp3';
 
 let mode = 'ready';
 
 const timeElement = document.createElement('div');
-timeElement.textContent = `Time: ${0}`;
+timeElement.textContent = `Game duration: ${0} sec`;
 const moves = document.createElement('div');
 moves.textContent = `Moves: ${0}`;
 stats.append(timeElement, moves);
 
+function swap(i) {
+	const tile = tiles[i];
+
+	tile.element.style.left = `${empty.left * tileSize}px`;
+	tile.element.style.top = `${empty.top * tileSize}px`;
+	const emptyTop = empty.top;
+	const emptyLeft = empty.left;
+	empty.left = tile.left;
+	empty.top = tile.top;
+	tile.left = emptyLeft;
+	tile.top = emptyTop;
+	if (isSolved()) {
+		wonMessage();
+	}
+}
+
+function isValidforSwap(i) {
+	const tile = tiles[i];
+	const leftDiff = Math.abs(empty.left - tile.left);
+	const topDiff = Math.abs(empty.top - tile.top);
+	if (leftDiff + topDiff > 1) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function isSolved() {
+	return tiles.every(tile => tile.value === tile.top * 4 + tile.left + 1);
+}
+
+function wonMessage() {
+	setTimeout(() => {
+		// message.innerHTML = `You win! <br> Hooray! You solved the puzzle in ${timeElement.textContent} and ${steps} moves!`;
+		alert(`Hooray! You solved the puzzle in ${t} sec and ${steps} moves!`);
+		mode = 'ready';
+		stopwatchRun();
+		countMoves();
+		setTimeout(() => {
+			message.innerHTML = '';
+		}, 4000);
+	}, 100);
+}
+
 let stopwatch;
+let t = 0;
 function stopwatchRun() {
-	let t = 0;
 	if (mode === 'run') {
 		stopwatch = setInterval(() => {
-			timeElement.textContent = `Time: ${t}`;
+			timeElement.textContent = `Game duration: ${t} sec`;
 			t++;
 		}, 1000);
 	}
-	if (mode === 'shuffling') {
+	if (mode === 'shuffling' || mode === 'ready') {
 		clearInterval(stopwatch);
+		t = 0;
+		timeElement.textContent = `Game duration: ${t} sec`;
 	}
 }
 
@@ -37,13 +86,15 @@ function countMoves() {
 	if (mode === 'run') {
 		steps++;
 	}
-	if (mode === 'shuffling') {
+	if (mode === 'shuffling' || mode === 'ready') {
 		steps = 0;
 	}
 	moves.textContent = `Moves: ${steps}`;
 }
 
 function main() {
+	// mode = 'run';
+	// stopwatchRun();
 	createMatrix();
 	buttonShuffle.textContent = 'Start Game';
 }
@@ -76,14 +127,14 @@ buttonShuffle.addEventListener('click', () => {
 		}
 	}, 50);
 });
+
 field.addEventListener('click', event => {
-	// console.log('mode', mode);
 	if (mode === 'shuffling') {
 		return;
 	}
 
 	if (mode === 'ready') {
-		alert('Press button "Shuffle and Start" to start the game!');
+		alert('Press button "Start Game" to start the game!');
 		return;
 	}
 	const tileNode = event.target.closest('.tile');
@@ -97,5 +148,5 @@ field.addEventListener('click', event => {
 		swap(tileId);
 	}
 });
-
+export { swap, isValidforSwap };
 main();

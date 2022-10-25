@@ -1,5 +1,5 @@
-import { isValidforSwap, swap } from '../helpers/swap';
 import { tiles } from './drawMatrix';
+import { swap, isValidforSwap } from '../app';
 
 let blockedPos;
 function randomSwap() {
