@@ -1,6 +1,8 @@
-function soundAccompaniment(src) {
+function soundAccompaniment(src, mute) {
 	const moveAudio = new Audio(src);
-	moveAudio.play();
+	if (!mute) {
+		moveAudio.play();
+	}
 }
 
 export default soundAccompaniment;

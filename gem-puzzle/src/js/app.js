@@ -6,6 +6,7 @@ import {
 	empty,
 	game as gameNode,
 	buttonShuffle,
+	muteButton,
 	stats,
 	message,
 } from './helpers/drawMatrix';
@@ -96,12 +97,21 @@ function main() {
 	// mode = 'run';
 	// stopwatchRun();
 	createMatrix();
-	buttonShuffle.textContent = 'Start Game';
 }
+
+let mute = false;
+muteButton.addEventListener('click', () => {
+	if (muteButton.textContent === 'Mute') {
+		muteButton.textContent = 'Unmute';
+		mute = true;
+	} else {
+		muteButton.textContent = 'Mute';
+		mute = false;
+	}
+});
 
 const maxShuffleCount = 100;
 let timer;
-
 buttonShuffle.addEventListener('click', () => {
 	if (mode === 'shuffling') {
 		return;
@@ -114,6 +124,7 @@ buttonShuffle.addEventListener('click', () => {
 	timer = setInterval(() => {
 		stopwatchRun();
 		buttonShuffle.disabled = true;
+		muteButton.disabled = true;
 		randomSwap();
 		shuffleCount++;
 		if (shuffleCount >= maxShuffleCount) {
@@ -122,6 +133,7 @@ buttonShuffle.addEventListener('click', () => {
 			gameNode.classList.remove('gameShuffling');
 			stopwatchRun();
 			buttonShuffle.disabled = false;
+			muteButton.disabled = false;
 			clearInterval(timer);
 			buttonShuffle.textContent = 'Shuffle and Restart';
 		}
@@ -144,9 +156,10 @@ field.addEventListener('click', event => {
 	const tileId = +tileNode.textContent;
 	if (isValidforSwap(tileId)) {
 		countMoves();
-		soundAccompaniment(audioSource);
+		soundAccompaniment(audioSource, mute);
 		swap(tileId);
 	}
 });
 export { swap, isValidforSwap };
 main();
+// window.onresize = createMatrix;

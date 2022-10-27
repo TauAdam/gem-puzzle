@@ -18,7 +18,12 @@ game.append(field);
 
 const buttonShuffle = document.createElement('button');
 buttonShuffle.className = 'btn-shuffle btn';
-footer.append(buttonShuffle);
+buttonShuffle.textContent = 'Start Game';
+
+const muteButton = document.createElement('button');
+muteButton.className = 'btn';
+muteButton.textContent = 'Mute';
+footer.append(buttonShuffle, muteButton);
 
 const message = document.createElement('h1');
 message.className = 'message';
@@ -66,5 +71,6 @@ export {
 	field,
 	game,
 	buttonShuffle,
+	muteButton,
 	message,
 };
