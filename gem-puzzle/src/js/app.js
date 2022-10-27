@@ -9,7 +9,7 @@ import {
 	buttonShuffle,
 	muteButton,
 	stats,
-	message,
+	select,
 } from './helpers/drawMatrix';
 import randomSwap from './helpers/shuffleAlgorithm';
 import soundAccompaniment from './helpers/audio';
@@ -60,9 +60,7 @@ function wonMessage() {
 		mode = 'ready';
 		stopwatchRun();
 		countMoves();
-		setTimeout(() => {
-			message.innerHTML = '';
-		}, 4000);
+		setTimeout(() => {}, 4000);
 	}, 100);
 }
 
@@ -152,6 +150,11 @@ field.addEventListener('click', event => {
 		soundAccompaniment(audioSource, mute);
 		swap(tileId);
 	}
+});
+
+select.addEventListener('change', () => {
+	clearMatrix();
+	createMatrix();
 });
 
 window.addEventListener('resize', () => {

@@ -23,37 +23,48 @@ buttonShuffle.textContent = 'Start Game';
 const muteButton = document.createElement('button');
 muteButton.className = 'btn';
 muteButton.textContent = 'Mute';
-footer.append(buttonShuffle, muteButton);
 
-const message = document.createElement('h1');
-message.className = 'message';
-wrapper.append(stats, game, footer, message);
+wrapper.append(stats, game, footer);
+
+const select = document.createElement('select');
+select.className = 'btn';
+for (let i = 0; i < 6; i++) {
+	const option = document.createElement('option');
+	option.textContent = `${i + 3}x${i + 3}`;
+	option.value = i + 3;
+	select.append(option);
+	if (option.textContent === '4x4') {
+		option.setAttribute('selected', '');
+	}
+}
+footer.append(buttonShuffle, select, muteButton);
+
+let frame = select.value;
 
 const empty = {
-	value: 16,
+	value: frame ** 2,
 	top: 3,
 	left: 3,
 };
 
-let tileSize =
-	6.25 *
-	parseInt(window.getComputedStyle(document.querySelector('html')).fontSize);
+let tileSize;
 
 let tiles = [empty];
 
 function createMatrix() {
+	frame = select.value;
 	tileSize =
 		6.25 *
 		parseInt(window.getComputedStyle(document.querySelector('html')).fontSize);
 	// const list = [...Array(15).keys()];
-	for (let i = 1; i < 16; i++) {
+	for (let i = 1; i < frame ** 2; i++) {
 		const tile = document.createElement('div');
 		tile.className = 'tile';
 		// const value = list[i - 1] + 1;
 		const value = i;
 		tile.innerHTML = value;
-		const left = (i - 1) % 4;
-		const top = (i - left - 1) / 4;
+		const left = (i - 1) % frame;
+		const top = (i - left - 1) / frame;
 		tile.style.left = `${left * tileSize}px`;
 		tile.style.top = `${top * tileSize}px`;
 		tiles.push({
@@ -82,5 +93,5 @@ export {
 	game,
 	buttonShuffle,
 	muteButton,
-	message,
+	select,
 };
