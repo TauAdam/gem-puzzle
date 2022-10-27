@@ -34,14 +34,18 @@ const empty = {
 	top: 3,
 	left: 3,
 };
-const tileSize =
+
+let tileSize =
 	6.25 *
 	parseInt(window.getComputedStyle(document.querySelector('html')).fontSize);
 
-const tiles = [empty];
+let tiles = [empty];
+
 function createMatrix() {
-	const list = [...Array(15).keys()];
-	console.log(list);
+	tileSize =
+		6.25 *
+		parseInt(window.getComputedStyle(document.querySelector('html')).fontSize);
+	// const list = [...Array(15).keys()];
 	for (let i = 1; i < 16; i++) {
 		const tile = document.createElement('div');
 		tile.className = 'tile';
@@ -62,11 +66,17 @@ function createMatrix() {
 	}
 }
 
+function clearMatrix() {
+	tiles = [empty];
+	field.innerHTML = '';
+}
+
 export {
 	tiles,
 	empty,
 	tileSize,
 	createMatrix,
+	clearMatrix,
 	stats,
 	field,
 	game,

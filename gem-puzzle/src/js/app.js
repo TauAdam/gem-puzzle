@@ -1,5 +1,6 @@
 import {
 	createMatrix,
+	clearMatrix,
 	field,
 	tileSize,
 	tiles,
@@ -55,7 +56,6 @@ function isSolved() {
 
 function wonMessage() {
 	setTimeout(() => {
-		// message.innerHTML = `You win! <br> Hooray! You solved the puzzle in ${timeElement.textContent} and ${steps} moves!`;
 		alert(`Hooray! You solved the puzzle in ${t} sec and ${steps} moves!`);
 		mode = 'ready';
 		stopwatchRun();
@@ -91,12 +91,6 @@ function countMoves() {
 		steps = 0;
 	}
 	moves.textContent = `Moves: ${steps}`;
-}
-
-function main() {
-	// mode = 'run';
-	// stopwatchRun();
-	createMatrix();
 }
 
 let mute = false;
@@ -144,7 +138,6 @@ field.addEventListener('click', event => {
 	if (mode === 'shuffling') {
 		return;
 	}
-
 	if (mode === 'ready') {
 		alert('Press button "Start Game" to start the game!');
 		return;
@@ -160,6 +153,16 @@ field.addEventListener('click', event => {
 		swap(tileId);
 	}
 });
+
+window.addEventListener('resize', () => {
+	clearMatrix();
+	createMatrix();
+});
+
 export { swap, isValidforSwap };
+function main() {
+	// mode = 'run';
+	// stopwatchRun();
+	createMatrix();
+}
 main();
-// window.onresize = createMatrix;
