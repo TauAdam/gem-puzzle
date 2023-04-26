@@ -1,0 +1,97 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #00a34c;
+	background-image: url('./img/graphy-dark.png');
+	overflow: hidden;
+	font-family: Montserrat;
+}
+
+.wrapper {
+	max-width: 25rem;
+	margin: 0 auto;
+	text-align: center;
+	user-select: none;
+	box-shadow: 0 7px 7px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+}
+
+.gameShuffling {
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+h1 {
+	margin: 1em;
+}
+
+.stats {
+	font-size: 1.5rem;
+	margin: 1rem;
+}
+
+.field {
+	width: 100%;
+	height: 25rem;
+	border: 1px solid black;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	position: relative;
+}
+.field.active {
+	// border: 0.5em dashed yellowgreen;
+}
+
+.tile {
+	position: absolute;
+	width: 25%;
+	height: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #550000;
+	border-radius: 5px;
+	background-color: #cfcaca;
+	font-size: 4.8rem;
+	outline: none;
+	cursor: pointer;
+	transition: all 0.15s ease-in;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+}
+
+.btn {
+	font-family: Montserrat;
+	cursor: pointer;
+	opacity: 0.7;
+	padding: 0.7em;
+	&:hover {
+		opacity: 1;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	body,
+	html {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	body,
+	html {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	body,
+	html {
+		font-size: 10px;
+	}
+}
